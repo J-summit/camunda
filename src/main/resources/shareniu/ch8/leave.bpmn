@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0syyson" targetNamespace="leave" exporter="Camunda Modeler" exporterVersion="2.2.3">
+  <bpmn:process id="leave" name="请假流程" isExecutable="true">
+    <bpmn:documentation>这是一个请假流程</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="day" label="请假天数" type="string" />
+          <camunda:formField id="start_time" label="开始时间" type="date" />
+          <camunda:formField id="end_time" label="结束时间" type="date" />
+          <camunda:formField id="reson" label="请假原因" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_08yod3n</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_08yod3n" sourceRef="StartEvent_1" targetRef="shareniuTask-1" />
+    <bpmn:userTask id="shareniuTask-1" name="申请人" camunda:assignee="zhangsan">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="day" label="请假天数" type="string" />
+          <camunda:formField id="start_time" label="开始时间" type="date" />
+          <camunda:formField id="end_time" label="结束时间" type="date" />
+          <camunda:formField id="reson" label="请假原因" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_08yod3n</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0m4x805</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0mcg5h8">
+      <bpmn:incoming>SequenceFlow_0m4x805</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_074c934</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_14x5fw4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0m4x805" sourceRef="shareniuTask-1" targetRef="ExclusiveGateway_0mcg5h8" />
+    <bpmn:userTask id="Task_1a4t2nh" name="组长审批" camunda:assignee="lisi">
+      <bpmn:incoming>SequenceFlow_074c934</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1woxxwa</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_074c934" name="小于三天" sourceRef="ExclusiveGateway_0mcg5h8" targetRef="Task_1a4t2nh">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${day&lt;3}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_0nmqsll">
+      <bpmn:incoming>SequenceFlow_1woxxwa</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1woxxwa" sourceRef="Task_1a4t2nh" targetRef="EndEvent_0nmqsll" />
+    <bpmn:sequenceFlow id="SequenceFlow_14x5fw4" name="大于等于三天" sourceRef="ExclusiveGateway_0mcg5h8" targetRef="Task_074fyxn">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${day&gt;=3}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Task_074fyxn" name="组长审批" camunda:assignee="lisi">
+      <bpmn:incoming>SequenceFlow_14x5fw4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1p6mupp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1p6mupp" sourceRef="Task_074fyxn" targetRef="Task_01a4i4p" />
+    <bpmn:endEvent id="EndEvent_0r1on56">
+      <bpmn:incoming>SequenceFlow_0kfajoe</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0kfajoe" sourceRef="Task_01a4i4p" targetRef="EndEvent_0r1on56" />
+    <bpmn:userTask id="Task_01a4i4p" name="项目经理审批" camunda:assignee="wangwu">
+      <bpmn:incoming>SequenceFlow_1p6mupp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0kfajoe</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="leave">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="169" y="157" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_08yod3n_di" bpmnElement="SequenceFlow_08yod3n">
+        <di:waypoint x="205" y="175" />
+        <di:waypoint x="255" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_08s7ih3_di" bpmnElement="shareniuTask-1" bioc:stroke="#FB8C00" bioc:fill="#FFE0B2">
+        <dc:Bounds x="255" y="135" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0mcg5h8_di" bpmnElement="ExclusiveGateway_0mcg5h8" isMarkerVisible="true">
+        <dc:Bounds x="409" y="150" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0m4x805_di" bpmnElement="SequenceFlow_0m4x805">
+        <di:waypoint x="359" y="175" />
+        <di:waypoint x="409" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0r07k8e_di" bpmnElement="Task_1a4t2nh" bioc:stroke="#E53935" bioc:fill="#FFCDD2">
+        <dc:Bounds x="513" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_074c934_di" bpmnElement="SequenceFlow_074c934">
+        <di:waypoint x="459" y="175" />
+        <di:waypoint x="486" y="175" />
+        <di:waypoint x="486" y="121" />
+        <di:waypoint x="513" y="121" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="481" y="145" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0nmqsll_di" bpmnElement="EndEvent_0nmqsll">
+        <dc:Bounds x="667" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1woxxwa_di" bpmnElement="SequenceFlow_1woxxwa">
+        <di:waypoint x="613" y="121" />
+        <di:waypoint x="667" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_14x5fw4_di" bpmnElement="SequenceFlow_14x5fw4">
+        <di:waypoint x="434" y="200" />
+        <di:waypoint x="434" y="285" />
+        <di:waypoint x="513" y="285" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="416" y="240" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1e36u2y_di" bpmnElement="Task_074fyxn" bioc:stroke="#8E24AA" bioc:fill="#E1BEE7">
+        <dc:Bounds x="513" y="245" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1p6mupp_di" bpmnElement="SequenceFlow_1p6mupp">
+        <di:waypoint x="613" y="285" />
+        <di:waypoint x="667" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0r1on56_di" bpmnElement="EndEvent_0r1on56">
+        <dc:Bounds x="821" y="267" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0kfajoe_di" bpmnElement="SequenceFlow_0kfajoe">
+        <di:waypoint x="767" y="285" />
+        <di:waypoint x="821" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1fg752v_di" bpmnElement="Task_01a4i4p">
+        <dc:Bounds x="667" y="245" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

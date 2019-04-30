@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0gytpuz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.3">
+  <bpmn:process id="singnalbounday" isExecutable="true">
+    <bpmn:userTask id="Task_00g5wr1" name="分享牛1">
+      <bpmn:incoming>SequenceFlow_12lv25l</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1pclni6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_0mmwpzh">
+      <bpmn:incoming>SequenceFlow_1pclni6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1pclni6" sourceRef="Task_00g5wr1" targetRef="EndEvent_0mmwpzh" />
+    <bpmn:startEvent id="StartEvent_1w659g7">
+      <bpmn:outgoing>SequenceFlow_12lv25l</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_12lv25l" sourceRef="StartEvent_1w659g7" targetRef="Task_00g5wr1" />
+    <bpmn:boundaryEvent id="BoundaryEvent_1n9gsb7" attachedToRef="Task_00g5wr1">
+      <bpmn:outgoing>SequenceFlow_03ge47f</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1r8393a" signalRef="Signal_1t2dv25" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_03ge47f" sourceRef="BoundaryEvent_1n9gsb7" targetRef="Task_0pf7u40" />
+    <bpmn:userTask id="Task_0pf7u40" name="分享牛2">
+      <bpmn:incoming>SequenceFlow_03ge47f</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_06uvtv0</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1hj1ezg">
+      <bpmn:incoming>SequenceFlow_06uvtv0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_06uvtv0" sourceRef="Task_0pf7u40" targetRef="EndEvent_1hj1ezg" />
+  </bpmn:process>
+  <bpmn:message id="Message_0oslbbl" name="msg1" />
+  <bpmn:message id="Message_0erxzrg" name="msg2" />
+  <bpmn:signal id="Signal_1t2dv25" name="alert" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="singnalbounday">
+      <bpmndi:BPMNShape id="UserTask_1k0f3bv_di" bpmnElement="Task_00g5wr1">
+        <dc:Bounds x="330" y="101" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0mmwpzh_di" bpmnElement="EndEvent_0mmwpzh">
+        <dc:Bounds x="480" y="123" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1pclni6_di" bpmnElement="SequenceFlow_1pclni6">
+        <di:waypoint x="430" y="141" />
+        <di:waypoint x="480" y="141" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_1r0fuqr_di" bpmnElement="StartEvent_1w659g7">
+        <dc:Bounds x="181" y="123" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_12lv25l_di" bpmnElement="SequenceFlow_12lv25l">
+        <di:waypoint x="217" y="141" />
+        <di:waypoint x="330" y="141" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_16wq4tr_di" bpmnElement="BoundaryEvent_1n9gsb7">
+        <dc:Bounds x="372" y="163" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_03ge47f_di" bpmnElement="SequenceFlow_03ge47f">
+        <di:waypoint x="390" y="199" />
+        <di:waypoint x="390" y="261" />
+        <di:waypoint x="458" y="261" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0xl6idv_di" bpmnElement="Task_0pf7u40">
+        <dc:Bounds x="458" y="221" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1hj1ezg_di" bpmnElement="EndEvent_1hj1ezg">
+        <dc:Bounds x="608" y="243" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_06uvtv0_di" bpmnElement="SequenceFlow_06uvtv0">
+        <di:waypoint x="558" y="261" />
+        <di:waypoint x="608" y="261" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

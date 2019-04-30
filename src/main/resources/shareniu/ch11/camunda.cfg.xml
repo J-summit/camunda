@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+
+    <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/camunda?characterEncoding=UTF-8" />
+    <property name="jdbcDriver" value="com.mysql.jdbc.Driver" />
+    <property name="jdbcUsername" value="root" />
+    <property name="jdbcPassword" value="123" />
+
+    <!-- Database configurations   isMetricsEnabled-->
+    <property name="databaseSchemaUpdate" value="true" />
+    <property name="metricsEnabled" value="false"></property>
+    <property name="dbHistoryUsed" value="true"></property>
+    <property name="historyLevel" value="HISTORY_LEVEL_FULL"></property>
+    <property name="tenantCheckEnabled" value="false"></property>
+    <property name="autoStoreScriptVariables" value="true"></property>
+  </bean>
+
+
+
+</beans>
